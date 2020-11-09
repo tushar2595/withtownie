@@ -1,7 +1,7 @@
 import axios from "axios";
 import { dispatchAction } from "../Redux/Store/index";
 import {
-  fetchStateData
+  fetchStateData, fetchCardData
 } from "../Redux/Action/index";
 
 
@@ -19,12 +19,12 @@ class APIManager {
     });
   }
   fetchCard = (param) => {
-    console.log(param,'iiiiiiiiiiii');
+    console.log(param, 'iiiiiiiiiiii');
     return new Promise((resolve, reject) => {
       this.axiosInstance
-        .get("api/"+param)
+        .get("api/" + param)
         .then((response) => {
-       //   dispatchAction(fetchStateData(response.data));
+          dispatchAction(fetchCardData(response.data));
           resolve(response);
           console.log(response);
         })
@@ -35,7 +35,7 @@ class APIManager {
   };
   fetchTable = () => {
     return new Promise((resolve, reject) => {
-     
+
       this.axiosInstance
         .get("api")
         .then((response) => {

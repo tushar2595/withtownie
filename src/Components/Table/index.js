@@ -10,6 +10,11 @@ import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
 import ApiManger from "../../APIManger/index";
 import APIManger from "../../APIManger/index";
+import Card from "../Card/index";
+import { dispatchAction } from "../../Redux/Store/index";
+import {
+  resetCardData
+} from "../../Redux/Action/index";
 
 const useStyles = makeStyles({
   table: {
@@ -42,6 +47,7 @@ class DenseTable extends React.Component {
   getDetailCard = () => {
     const Id = this.state.id;
     ApiManger.fetchCard(Id);
+    dispatchAction(resetCardData());
   };
 
   render() {
@@ -50,7 +56,7 @@ class DenseTable extends React.Component {
     console.log(this.state.id, "kmklmxkm");
     return (
       <TableContainer component={Paper}>
-        <Table size="small" aria-label="a dense table">
+        <Table onClick={this.getDetailCard} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
               <TableCell>Request Id</TableCell>
@@ -76,7 +82,7 @@ class DenseTable extends React.Component {
                     {row.Request_id}
                   </TableCell>
 
-                  <TableCell onClick={this.getDetailCard}>{row.Tourist_name}</TableCell>
+                  <TableCell >{row.Tourist_name}</TableCell>
                   <TableCell>{row.Start_date}</TableCell>
                   <TableCell>{row.End_date}</TableCell>
                   <TableCell>{row.Destination}</TableCell>
@@ -93,6 +99,7 @@ class DenseTable extends React.Component {
 const mapStateToProps = (state) => {
   return {
     state_data: state.FetchReducer.state_data,
+
   };
 };
 export default connect(mapStateToProps)(DenseTable);
