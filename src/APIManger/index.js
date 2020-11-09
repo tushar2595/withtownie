@@ -4,6 +4,8 @@ import {
   fetchStateData
 } from "../Redux/Action/index";
 
+
+
 class APIManager {
   constructor() {
 
@@ -16,9 +18,24 @@ class APIManager {
       },
     });
   }
-
+  fetchCard = (param) => {
+    console.log(param,'iiiiiiiiiiii');
+    return new Promise((resolve, reject) => {
+      this.axiosInstance
+        .get("api/"+param)
+        .then((response) => {
+       //   dispatchAction(fetchStateData(response.data));
+          resolve(response);
+          console.log(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
   fetchTable = () => {
     return new Promise((resolve, reject) => {
+     
       this.axiosInstance
         .get("api")
         .then((response) => {
